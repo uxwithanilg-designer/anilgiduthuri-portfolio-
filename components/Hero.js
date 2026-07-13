@@ -105,7 +105,7 @@ export default function Hero() {
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="/Anil_Kumar_Giduthuri_Resume.pdf" className={styles.btnOutline} download>
+          <a href="/Anil_Kumar_Giduthuri_Resume_2026.pdf" className={styles.btnOutline} download>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
             </svg>

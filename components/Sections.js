@@ -670,7 +670,7 @@ export function Footer() {
           <a href="mailto:uxwithanilg@gmail.com" className={styles.btnPrimary}>
             uxwithanilg@gmail.com →
           </a>
-          <a href="/Anil_Kumar_Giduthuri_Resume.pdf" className={styles.btnOutline} download>
+          <a href="/Anil_Kumar_Giduthuri_Resume_2026.pdf" className={styles.btnOutline} download>
             ↓ Download Resume
           </a>
         </div>

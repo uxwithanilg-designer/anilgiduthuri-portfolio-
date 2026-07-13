@@ -530,7 +530,7 @@ export default function DesignsPage() {
               </div>
               <div className={styles.ctaActions}>
                 <a href="/contact" className={styles.ctaPrimary}>Request Full Portfolio →</a>
-                <a href="/Anil_Kumar_Giduthuri_Resume.pdf" download className={styles.ctaSecondary}>
+                <a href="/Anil_Kumar_Giduthuri_Resume_2026.pdf" download className={styles.ctaSecondary}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                   Resume
                 </a>
