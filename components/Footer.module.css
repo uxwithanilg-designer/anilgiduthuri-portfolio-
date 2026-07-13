@@ -1,0 +1,23 @@
+.footer{background:var(--bg-0);border-top:1px solid var(--border);padding:80px 0 48px;}
+.inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.cta{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:var(--text);text-align:center;margin-bottom:40px;}
+.cta span{color:var(--cyan);}
+.acts{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+.btnPrimary{padding:13px 28px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-family:var(--font-display);font-size:0.88rem;font-weight:700;border-radius:8px;text-decoration:none;box-shadow:0 8px 28px rgba(0,212,255,0.2);transition:all 0.3s;}
+.btnPrimary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(0,212,255,0.35);}
+.btnResume{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--font-display);font-size:0.88rem;font-weight:600;border-radius:8px;text-decoration:none;transition:all 0.3s;}
+.btnResume:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim);}
+.socialRow{display:flex;justify-content:center;gap:12px;margin-bottom:40px;}
+.socialLink{width:44px;height:44px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text-muted);transition:all 0.3s;}
+.socialLink:hover{transform:translateY(-2px);}
+.li:hover{border-color:#0077b5;color:#0077b5;background:rgba(0,119,181,0.1);}
+.ig:hover{border-color:#e1306c;color:#e1306c;background:rgba(225,48,108,0.1);}
+.em:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim);}
+.divider{height:1px;background:var(--border);margin-bottom:32px;}
+.bottom{display:flex;justify-content:space-between;align-items:center;}
+.brand{font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--text-muted);}
+.links{display:flex;gap:28px;list-style:none;}
+.links a{font-family:var(--font-body);font-size:0.8rem;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
+.links a:hover{color:var(--cyan);}
+.copy{font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);}
+@media(max-width:768px){.inner{padding:0 20px;}.bottom{flex-direction:column;gap:20px;text-align:center;}.links{flex-wrap:wrap;justify-content:center;}}

@@ -1,0 +1,18 @@
+/* ══ BgAnimation — Clean, Non-Overlapping ══ */
+.bgWrap {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  /* Z-index 1 — sits behind all content (main = z-index 3) */
+  z-index: 1;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Normal blend — no more screen blend that causes overlap artifacts */
+  opacity: 0.8;
+}

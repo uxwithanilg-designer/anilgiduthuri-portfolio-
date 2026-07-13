@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0D1117" />
+<title>Blog — N3XGEN.AI | Insights on Autonomous AI</title>
+<meta name="description" content="Deep dives, case studies, and engineering insights on autonomous AI agents, governance, and the enterprise AI stack.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================
+     N3XGEN.AI — DESIGN TOKENS
+     ============================================ */
+  :root {
+    --bg-primary: #0D1117;
+    --bg-secondary: #0A0E13;
+    --bg-elevated: #131922;
+    --bg-panel: rgba(19, 25, 34, 0.6);
+
+    --accent-cyan: #1D9DD9;
+    --accent-teal: #12AC92;
+    --accent-glow: #1D9DD9;
+    --accent-warning: #F5A623;
+
+    --text-primary: #E6EDF3;
+    --text-secondary: #8B949E;
+    --text-muted: #484F58;
+
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-muted: rgba(255, 255, 255, 0.1);
+
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-display: 'Space Grotesk', -apple-system, sans-serif;
+    --font-serif: 'Instrument Serif', serif;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--bg-primary); }
+  body {
+    font-family: var(--font-display);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================
+     TOP NAV (Exact Sync with index.html)
+     ============================================ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    background: rgba(7,10,18,0.7);
+    backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 9px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .logo-img { height: 42px; width: auto; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-links a.active { color: var(--text-primary); }
+  .nav-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-sm { padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all .2s; border: none; display: flex; align-items: center; }
+  .btn-sm-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); }
+  .btn-sm-ghost:hover { border-color: rgba(255,255,255,0.25); color: var(--text-primary); }
+  .btn-sm-teal { background: var(--accent-teal); border: none; color: #000; box-shadow: 0 0 20px rgba(18,172,146,0.3); }
+  .btn-sm-teal:hover { box-shadow: 0 0 32px rgba(18,172,146,0.5); }
+  
+  .mobile-menu-btn {
+    display: none; background: transparent; border: 1px solid var(--border-muted); color: var(--text-primary);
+    width: 36px; height: 36px; border-radius: 4px; cursor: pointer; align-items: center; justify-content: center;
+  }
+  @media (max-width: 900px) {
+    .nav-links, .nav-actions { display: none; }
+    .mobile-menu-btn { display: flex; }
+    nav { padding: 0 16px; }
+  }
+
+  /* ─── HERO ─── */
+  .blog-hero {
+    position: relative; min-height: 600px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 120px 24px 80px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .hero-bg-layer {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% -5%,  rgba(18,172,146,.12) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 50% at 80% 15%,  rgba(29,157,217,.08) 0%, transparent 55%),
+      var(--bg-primary);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black, transparent);
+  }
+  #blog-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 850px; width: 100%; }
+  
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent-teal); background: rgba(18,172,146,.10); border: 1px solid rgba(18,172,146,.25);
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .hero-title {
+    font-size: clamp(36px, 6vw, 76px); font-weight: 500; line-height: 1.04; letter-spacing: -.03em; margin-bottom: 22px;
+  }
+  .grad-teal { color: var(--accent-teal); }
+  .grad-blue { color: var(--accent-cyan); font-family: var(--font-serif); font-style: italic; }
+  
+  .hero-subtitle {
+    font-size: clamp(15px, 1.3vw, 18px); color: var(--text-secondary); line-height: 1.7;
+    margin-bottom: 44px; max-width: 600px; margin-left: auto; margin-right: auto;
+    font-weight: 300;
+  }
+
+  /* Search */
+  .search-wrap { position: relative; max-width: 580px; width: 100%; margin: 0 auto 48px; }
+  .search-bar {
+    width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-muted);
+    border-radius: 14px; padding: 17px 64px 17px 52px;
+    font-family: var(--font-display); font-size: 15px; color: var(--text-primary);
+    outline: none; transition: all .3s; backdrop-filter: blur(12px);
+  }
+  .search-bar:focus { border-color: var(--accent-cyan); box-shadow: 0 0 32px rgba(29,157,217,0.1); }
+  .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-secondary); }
+  .search-kbd {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+    background: rgba(255,255,255,.06); border: 1px solid var(--border-subtle); padding: 3px 7px; border-radius: 4px;
+  }
+
+  /* Category Pills */
+  .cat-strip { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .cat-pill {
+    font-size: 12px; font-weight: 500; padding: 7px 18px; border-radius: 100px;
+    border: 1px solid var(--border-muted); background: var(--bg-panel);
+    color: var(--text-secondary); cursor: pointer; transition: all .2s; white-space: nowrap;
+  }
+  .cat-pill:hover { color: var(--text-primary); border-color: var(--accent-cyan); }
+  .cat-pill.active { background: rgba(29,157,217,0.1); border-color: var(--accent-cyan); color: var(--accent-cyan); }
+
+  /* Stats */
+  .hero-stats { display: flex; align-items: center; gap: 32px; justify-content: center; margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--border-subtle); }
+  .hstat-num { font-size: 22px; font-weight: 700; font-family: var(--font-mono); color: var(--text-primary); }
+  .hstat-label { font-size: 10px; color: var(--text-muted); margin-top: 4px; letter-spacing: .08em; text-transform: uppercase; }
+  .stat-div { width:1px; height:32px; background: var(--border-subtle); }
+
+  /* ─── MAIN LAYOUT ─── */
+  .blog-main { padding: 80px 40px 100px; max-width: 1300px; margin: 0 auto; }
+  .sec-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+  .sec-title { font-size: 20px; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+  .sec-title::before { content: ''; width: 4px; height: 20px; background: var(--accent-teal); border-radius: 2px; }
+  .view-all { font-size: 13px; font-weight: 500; color: var(--accent-teal); text-decoration: none; }
+
+  /* ─── FEATURED POST ─── */
+  .featured-post {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 0;
+    background: var(--bg-secondary); border: 1px solid var(--border-muted);
+    border-radius: 22px; overflow: hidden; margin-bottom: 72px; cursor: pointer; transition: all .45s cubic-bezier(.23,1,.32,1); position: relative;
+  }
+  .featured-post:hover { border-color: var(--accent-teal); transform: translateY(-5px); box-shadow: 0 24px 64px rgba(0,0,0,.45); }
+  .feat-img { position: relative; overflow: hidden; min-height: 420px; background: #080C14; }
+  #featured-canvas { position: absolute; inset: 0; width:100%; height:100%; }
+  .feat-badge { position: absolute; top:20px; left:20px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; padding: 5px 12px; border-radius: 100px; background: var(--accent-teal); color: #000; z-index: 2; }
+  
+  .feat-body { padding: clamp(28px,4vw,60px); display: flex; flex-direction: column; justify-content: center; }
+  .post-cat { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-teal); text-transform: uppercase; margin-bottom: 12px; }
+  .feat-title { font-size: clamp(24px,3vw,34px); font-weight: 600; line-height: 1.2; margin-bottom: 18px; color: var(--text-primary); }
+  .feat-excerpt { font-size: 16px; color: var(--text-secondary); line-height: 1.72; margin-bottom: 32px; font-weight: 300; }
+  
+  .feat-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--bg-elevated); border: 1px solid var(--border-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--accent-teal); }
+  .author-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .author-date { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── BLOG GRID ─── */
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; margin-bottom: 72px; }
+  .blog-card { background: var(--bg-panel); border: 1px solid var(--border-muted); border-radius: 18px; overflow: hidden; cursor: pointer; transition: all .3s var(--ease-out); display: flex; flex-direction: column; }
+  .blog-card:hover { transform: translateY(-7px); border-color: var(--accent-cyan); box-shadow: 0 28px 56px rgba(0,0,0,.42); }
+  .card-img { position: relative; height: 210px; overflow: hidden; background: #080C14; }
+  .card-body { padding: 28px; flex:1; display: flex; flex-direction: column; }
+  .card-title { font-size: 18px; font-weight: 600; line-height: 1.4; margin-bottom: 12px; color: var(--text-primary); }
+  .card-excerpt { font-size: 14px; color: var(--text-secondary); line-height: 1.68; margin-bottom: 20px; flex: 1; font-weight: 300; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+  .card-cta { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+
+  /* ============================================
+     FOOTER (Exact Sync with index.html)
+     ============================================ */
+  footer { position: relative; background: var(--bg-secondary); padding: 120px 32px 40px; border-top: 1px solid var(--border-subtle); overflow: hidden; z-index: 10; }
+  .footer-inner { max-width: 1400px; margin: 0 auto; }
+  .footer-brand { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; margin-bottom: 80px; }
+  .footer-logo-img { height: 42px; width: auto; margin-bottom: 24px; }
+  .footer-tagline { font-size: 15px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 32px; max-width: 420px; font-weight: 300; }
+  .footer-socials { display: flex; gap: 12px; }
+  .footer-social { width: 36px; height: 36px; border-radius: 4px; background: var(--bg-elevated); border: 1px solid var(--border-muted); display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.2s; text-decoration: none; }
+  .footer-social:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); transform: translateY(-2px); }
+  .footer-social svg { width: 16px; height: 16px; }
+
+  .footer-nl-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent-teal); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+  .footer-nl-form { display: flex; gap: 8px; max-width: 400px; margin-bottom: 16px; }
+  .footer-nl-input { flex: 1; background: var(--bg-primary); border: 1px solid var(--border-muted); border-radius: 4px; padding: 12px 16px; font-family: var(--font-mono); font-size: 13px; color: var(--text-primary); outline: none; transition: border-color 0.2s; }
+  .footer-nl-btn { background: var(--accent-teal); color: #000; border: none; border-radius: 4px; padding: 0 20px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .footer-links-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; padding-bottom: 64px; border-bottom: 1px solid var(--border-subtle); }
+  .footer-col-title { font-family: var(--font-mono); font-size: 11px; color: var(--text-primary); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; font-weight: 700; }
+  .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; font-weight: 300; }
+  .footer-col-links a:hover { color: var(--accent-cyan); }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding: 24px 0; font-size: 12px; color: var(--text-muted); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .footer-brand { grid-template-columns: 1fr; gap: 40px; }
+    .footer-links-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .featured-post { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="readingProgress"></div>
+
+  <!-- ─── NAV (Exact index.html Structure) ─── -->
+  <nav id="mainNav">
+    <a href="../index.html" class="logo">
+      <img src="../assets/n3xgenailogo.svg" alt="n3xgen.ai logo" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html#forensic">Diagnostic</a></li>
+      <li><a href="../index.html#domain-explorer">Domains</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#governance">Security</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-sm btn-sm-ghost">Documentation</button>
+      <button class="btn-sm btn-sm-teal">Get Early Access</button>
+    </div>
+  </nav>
+
+  <section class="blog-hero">
+    <div class="hero-bg-layer"></div>
+    <div class="hero-grid"></div>
+    <canvas id="blog-hero-canvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Insights &amp; Intelligence
+      </div>
+      <h1 class="hero-title">
+        The Future of Ai,<br>
+        <span class="grad-teal">Decoded</span> &amp; <span class="grad-blue">Delivered</span>
+      </h1>
+      <p class="hero-subtitle">
+        Deep dives, case studies, and engineering insights on autonomous AI agents,
+        governance frameworks, and the enterprise AI stack.
+      </p>
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="search-bar" id="blogSearch" placeholder="Search articles...">
+        <span class="search-kbd">⌘K</span>
+      </div>
+
+      <div class="cat-strip" id="catStrip">
+        <span class="cat-pill active" data-cat="all">All Posts</span>
+        <span class="cat-pill" data-cat="agents">AI Agents</span>
+        <span class="cat-pill" data-cat="governance">Governance</span>
+        <span class="cat-pill" data-cat="engineering">Engineering</span>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hstat-num">48+</div><div class="hstat-label">Articles</div></div>
+        <div class="stat-div"></div>
+        <div class="hero-stat"><div class="hstat-num">12K</div><div class="hstat-label">Readers</div></div>
+        <div class="stat-div"></div>
+        <div class="hero-stat"><div class="hstat-num">Weekly</div><div class="hstat-label">Updates</div></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="blog-main">
+    <div class="sec-hdr reveal">
+      <h2 class="sec-title">Featured Story</h2>
+      <a href="#" class="view-all">View all stories →</a>
+    </div>
+
+    <article class="featured-post reveal" onclick="window.location.href='blog-post-01.html'">
+      <div class="feat-img">
+        <canvas id="featured-canvas"></canvas>
+        <span class="feat-badge">Featured</span>
+      </div>
+      <div class="feat-body">
+        <div class="post-cat">AI Agents</div>
+        <h2 class="feat-title">How Autonomous Ai Agents Are Reshaping Enterprise Workflows in 2026</h2>
+        <p class="feat-excerpt">Instead of simple task automation, we're seeing the emergence of multi-agent systems that can reason, collaborate, and adapt in real-time.</p>
+        <div class="feat-author">
+          <div class="author-avatar">AK</div>
+          <div>
+            <div class="author-name">Arjun Krishnamurthy</div>
+            <div class="author-date">April 18, 2026 · 8 min read</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="sec-hdr reveal">
+      <h2 class="sec-title">Latest Articles</h2>
+      <a href="#" class="view-all">See all →</a>
+    </div>
+
+    <div class="blog-grid" id="blogGrid">
+      <article class="blog-card reveal">
+        <div class="card-img"><div class="card-img-bg" style="background: radial-gradient(circle at center, var(--accent-cyan), transparent); opacity: 0.15;"></div></div>
+        <div class="card-body">
+          <h3 class="card-title">Zero-Trust AI: Why Every Agent Needs a Permission System</h3>
+          <p class="card-excerpt">As AI agents gain access to sensitive systems, the question of "who authorized this?" becomes critical.</p>
+          <div class="card-footer">
+            <span class="author-sm-name">Shreya Patel · Apr 15</span>
+            <span class="card-cta">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14l-4-4m4 4l-4 4"/></svg></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card reveal">
+        <div class="card-img"><div class="card-img-bg" style="background: radial-gradient(circle at center, var(--accent-teal), transparent); opacity: 0.15;"></div></div>
+        <div class="card-body">
+          <h3 class="card-title">Building Multi-Agent Pipelines Without Losing Control</h3>
+          <p class="card-excerpt">Orchestrating multiple AI agents sounds powerful — until one breaks your entire workflow.</p>
+          <div class="card-footer">
+            <span class="author-sm-name">Rahul Verma · Apr 12</span>
+            <span class="card-cta">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14l-4-4m4 4l-4 4"/></svg></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card reveal">
+        <div class="card-img"><div class="card-img-bg" style="background: radial-gradient(circle at center, var(--accent-warning), transparent); opacity: 0.15;"></div></div>
+        <div class="card-body">
+          <h3 class="card-title">The Hidden Cost of Unmanaged AI Governance</h3>
+          <p class="card-excerpt">Ungoverned agents making unauthorized decisions can lead to massive operational risks.</p>
+          <div class="card-footer">
+            <span class="author-sm-name">Nisha Kumar · Apr 10</span>
+            <span class="card-cta">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14l-4-4m4 4l-4 4"/></svg></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- ─── FOOTER (Exact index.html Structure) ─── -->
+  <footer id="footer" class="reveal">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <a href="../index.html" class="footer-logo">
+            <img src="../assets/n3xgenailogo.svg" alt="n3xgen.ai logo" class="footer-logo-img">
+          </a>
+          <p class="footer-tagline">The operating system for autonomous AI — orchestrate, govern, and scale agents with zero-trust security, built for the enterprise.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.912-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+            <a href="#" class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3.405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-newsletter">
+          <div class="footer-nl-label">Stay ahead of the curve</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;line-height:1.6;max-width:360px">Get weekly insights on autonomous AI, zero-trust security, and agentic workflows.</p>
+          <div class="footer-nl-form">
+            <input class="footer-nl-input" type="email" placeholder="your@company.com"/>
+            <button class="footer-nl-btn">Subscribe</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Platform</div>
+          <ul class="footer-col-links">
+            <li><a href="#">Agent Studio</a></li>
+            <li><a href="#">Mission Control</a></li>
+            <li><a href="#">iPass™ Zero-Trust</a></li>
+            <li><a href="#">Domain Explorer</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Solutions</div>
+          <ul class="footer-col-links">
+            <li><a href="#">Finance &amp; Accounting</a></li>
+            <li><a href="#">Sales &amp; Revenue Ops</a></li>
+            <li><a href="#">IT &amp; DevSecOps</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Resources</div>
+          <ul class="footer-col-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-col-links">
+            <li><a href="../index.html">About N3XGEN</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 n3xgen.ai. All rights reserved.</p>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a><a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').style.background = window.scrollY > 20 ? 'rgba(7,10,18,.95)' : 'rgba(7,10,18,.7)';
+    const prog = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('readingProgress').style.width = prog + '%';
+  });
+
+  (function() {
+    const canvas = document.getElementById('blog-hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let pts = [];
+    function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+    class Pt {
+      constructor() { this.init(); }
+      init() {
+        this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 1.8 + .4; this.vx = (Math.random() - .5) * .28; this.vy = (Math.random() - .5) * .28;
+        this.phase = Math.random() * Math.PI * 2; this.col = Math.random() > .5 ? '#12AC92' : '#1D9DD9';
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy; this.phase += .018;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.init();
+      }
+      draw() {
+        ctx.save(); ctx.globalAlpha = Math.sin(this.phase) * .22 + .28; ctx.fillStyle = this.col;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fill(); ctx.restore();
+      }
+    }
+    function drawEdges() {
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i+1; j < pts.length; j++) {
+          const d = Math.sqrt((pts[i].x - pts[j].x)**2 + (pts[i].y - pts[j].y)**2);
+          if (d < 110) {
+            ctx.save(); ctx.globalAlpha = (1 - d/110) * .09; ctx.strokeStyle = '#12AC92';
+            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); ctx.restore();
+          }
+        }
+      }
+    }
+    function init() { resize(); pts = Array.from({ length: Math.floor(canvas.width * canvas.height / 7800) }, () => new Pt()); }
+    function loop() { ctx.clearRect(0, 0, canvas.width, canvas.height); drawEdges(); pts.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(loop); }
+    window.addEventListener('resize', init); init(); loop();
+  })();
+
+  (function() {
+    const canvas = document.getElementById('featured-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const layers = [2, 3, 3, 2, 1]; let nodes = [], t = 0;
+    function buildNodes() {
+      nodes = []; let x = canvas.width * .12;
+      layers.forEach((count, l) => {
+        const step = canvas.height / (count + 1);
+        for (let n = 0; n < count; n++) nodes.push({ x, y: step * (n + 1), l, n });
+        x += canvas.width * .2;
+      });
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let l = 0; l < layers.length - 1; l++) {
+        const layerA = nodes.filter(n => n.l === l), layerB = nodes.filter(n => n.l === l + 1);
+        layerA.forEach((a, ai) => {
+          layerB.forEach((b, bi) => {
+            ctx.save(); ctx.globalAlpha = .07 + ((Math.sin(t * .025 + ai * .7 + bi * .5) + 1) / 2) * .12;
+            ctx.strokeStyle = '#12AC92'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore();
+            const p2 = (t * .012 + ai * .4 + bi * .3) % 1;
+            ctx.save(); ctx.globalAlpha = .85; ctx.fillStyle = '#00E5FF';
+            ctx.beginPath(); ctx.arc(a.x + (b.x-a.x)*p2, a.y + (b.y-a.y)*p2, 2.2, 0, Math.PI*2); ctx.fill(); ctx.restore();
+          });
+        });
+      }
+      nodes.forEach((nd, i) => {
+        const pulse = (Math.sin(t * .035 + i * .7) + 1) / 2, r = 5 + pulse * 3.5;
+        ctx.save(); ctx.fillStyle = nd.l === 4 ? '#00E5FF' : '#12AC92'; ctx.globalAlpha = .65 + pulse * .35;
+        ctx.beginPath(); ctx.arc(nd.x, nd.y, r, 0, Math.PI*2); ctx.fill(); ctx.restore();
+      });
+      t++; requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', () => { canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; buildNodes(); });
+    canvas.width = canvas.parentElement.offsetWidth; canvas.height = canvas.parentElement.offsetHeight; buildNodes(); draw();
+  })();
+
+  const revealObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }); }, { threshold: .08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  </script>
+</body>
+</html>
