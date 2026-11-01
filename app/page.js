@@ -1,36 +1,25 @@
-'use client'
-import Navbar from '@/components/Navbar'
-import Hero from '@/components/Hero'
-import { Marquee, Work, Experience, Skills, AIDev, Footer } from '@/components/Sections'
-import About from '@/components/About'
-import Contact from '@/components/Contact'
-import Cursor from '@/components/Cursor'
-import ScrollReveal from '@/components/ScrollReveal'
-import BgAnimation from '@/components/BgAnimation'
-import MobileNav from '@/components/MobileNav'
-import StickyAssets from '@/components/StickyAssets'
+import Hero from '@/components/home/Hero'
+import Marquee from '@/components/home/Marquee'
+import Work from '@/components/home/Work'
+import ScreenRail from '@/components/home/ScreenRail'
+import About from '@/components/home/About'
+import Process from '@/components/home/Process'
+import Build from '@/components/home/Build'
+import Experience from '@/components/home/Experience'
+import Contact from '@/components/home/Contact'
 
 export default function Home() {
   return (
     <>
-      <BgAnimation variant="home" />
-      <StickyAssets variant="home" />
-      <Cursor />
-      <ScrollReveal />
-      <Navbar />
-      <MobileNav />
-      <main>
-        <Hero />
-        <Marquee />
-        <About />
-        <Work />
-        <Experience />
-        <Skills />
-        <AIDev />
-
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <Marquee />
+      <Work />
+      <ScreenRail />
+      <About />
+      <Process />
+      <Build />
+      <Experience />
+      <Contact />
     </>
   )
 }

@@ -1,0 +1,746 @@
+<!doctype html>
+<!--
+  Anil Kumar Giduthuri — resume source.
+  To regenerate the PDF: open this file in Chrome → Print → Save as PDF
+  (paper A4, margins: None, Background graphics: on).
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Anil Kumar Giduthuri — Senior Product &amp; UX Designer — Resume</title>
+    <meta name="author" content="Anil Kumar Giduthuri" />
+    <meta name="description" content="Resume of Anil Kumar Giduthuri, senior product and UX designer, Hyderabad." />
+    <style>
+      @font-face {
+        font-family: 'Inter Tight';
+        src: url('fonts/inter-tight-latin-wght-normal.woff2') format('woff2');
+        font-weight: 100 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Inter Tight';
+        src: url('fonts/inter-tight-latin-wght-italic.woff2') format('woff2');
+        font-weight: 100 900;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Instrument Serif';
+        src: url('fonts/instrument-serif-latin-400-italic.woff2') format('woff2');
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Instrument Serif';
+        src: url('fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+        font-weight: 100 900;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      :root {
+        --ink: #111116;
+        --ink-2: #33343c;
+        --ink-3: #6b6c76;
+        --ink-4: #9a9ba4;
+        --line: #e4e3de;
+        --accent: #4b3fe4;
+        --accent-soft: #efedff;
+        --paper: #ffffff;
+        --tint: #f7f6f2;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: #e9e8e3;
+      }
+
+      body {
+        font-family: 'Inter Tight', 'Segoe UI', Arial, sans-serif;
+        font-size: 8.9pt;
+        line-height: 1.48;
+        color: var(--ink-2);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        font-feature-settings: 'ss01', 'cv11';
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        margin: 10mm auto;
+        padding: 15mm 15mm 13mm;
+        background: var(--paper);
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+      }
+      @media print {
+        html,
+        body {
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          break-after: page;
+        }
+        .page:last-child {
+          break-after: auto;
+        }
+      }
+
+      /* Soft brand glow in the corner of page one */
+      .glow {
+        position: absolute;
+        top: -60mm;
+        right: -50mm;
+        width: 140mm;
+        height: 110mm;
+        background: radial-gradient(closest-side, rgba(110, 96, 255, 0.16), rgba(255, 150, 110, 0.07) 60%, transparent);
+        pointer-events: none;
+      }
+
+      /* ───────── Header ───────── */
+      .head {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 10mm;
+        padding-bottom: 6mm;
+        border-bottom: 0.6pt solid var(--ink);
+      }
+      .mark {
+        display: block;
+        width: 11mm;
+        height: 11mm;
+        margin-bottom: 4.5mm;
+      }
+      h1 {
+        font-size: 27pt;
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+        font-weight: 620;
+        color: var(--ink);
+      }
+      h1 em {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+      .role {
+        margin-top: 2.6mm;
+        font-size: 10.6pt;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+      }
+      .focus {
+        margin-top: 1mm;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.9pt;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .contact {
+        display: grid;
+        gap: 0.9mm;
+        text-align: right;
+        font-size: 8.3pt;
+        color: var(--ink-2);
+      }
+      .contact a:hover {
+        color: var(--accent);
+      }
+      .contact .u {
+        color: var(--accent);
+      }
+
+      /* ───────── Sections ───────── */
+      .sec {
+        display: grid;
+        grid-template-columns: 31mm 1fr;
+        gap: 6mm;
+        padding-top: 4.4mm;
+      }
+      .label {
+        display: flex;
+        align-items: baseline;
+        gap: 2mm;
+        padding-top: 0.6mm;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.8pt;
+        font-weight: 500;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+      .label::before {
+        content: '';
+        flex: none;
+        width: 1.6mm;
+        height: 1.6mm;
+        border-radius: 0.4mm;
+        background: var(--accent);
+        transform: translateY(-0.2mm);
+      }
+
+      .summary {
+        font-size: 9.6pt;
+        line-height: 1.55;
+        color: var(--ink);
+      }
+      .summary strong {
+        font-weight: 600;
+      }
+
+      /* Impact row */
+      .impact {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.4mm;
+        margin-top: 4.2mm;
+      }
+      .tile {
+        padding: 3mm 3.2mm 3.2mm;
+        border-radius: 2.4mm;
+        background: var(--tint);
+        border: 0.5pt solid var(--line);
+      }
+      .tile b {
+        display: block;
+        font-size: 15pt;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        font-weight: 620;
+        color: var(--accent);
+      }
+      .tile span {
+        display: block;
+        margin-top: 1.4mm;
+        font-size: 7.3pt;
+        line-height: 1.35;
+        color: var(--ink-2);
+      }
+
+      /* Jobs */
+      .job + .job {
+        margin-top: 4.2mm;
+        padding-top: 4.2mm;
+        border-top: 0.5pt dashed var(--line);
+      }
+      .job {
+        break-inside: avoid;
+      }
+      .job-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      .job h3 {
+        font-size: 10.2pt;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        font-weight: 640;
+        color: var(--ink);
+      }
+      .job h3 .co {
+        font-weight: 500;
+        color: var(--ink-3);
+      }
+      .date {
+        flex: none;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7pt;
+        color: var(--ink-3);
+        white-space: nowrap;
+      }
+      .ctx {
+        margin-top: 0.8mm;
+        font-size: 8.7pt;
+        font-style: italic;
+        color: var(--ink-3);
+      }
+      ul {
+        list-style: none;
+        margin-top: 1.6mm;
+        display: grid;
+        gap: 1.1mm;
+      }
+      li {
+        position: relative;
+        padding-left: 4mm;
+      }
+      li::before {
+        content: '';
+        position: absolute;
+        left: 0.4mm;
+        top: 0.62em;
+        width: 2mm;
+        height: 0.6pt;
+        background: var(--accent);
+      }
+      li b {
+        font-weight: 620;
+        color: var(--ink);
+      }
+
+      /* Selected work */
+      .work {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3mm;
+      }
+      .case {
+        padding: 3.6mm 3.8mm;
+        border-radius: 2.6mm;
+        border: 0.5pt solid var(--line);
+        background: linear-gradient(160deg, var(--accent-soft), #fff 55%);
+        break-inside: avoid;
+      }
+      .case h4 {
+        font-size: 11pt;
+        letter-spacing: -0.03em;
+        font-weight: 640;
+        color: var(--ink);
+      }
+      .case .meta {
+        margin-top: 0.6mm;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.6pt;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .case p {
+        margin-top: 1.8mm;
+        font-size: 8.4pt;
+        line-height: 1.45;
+      }
+      .more {
+        margin-top: 2.6mm;
+        font-size: 8.2pt;
+        color: var(--ink-3);
+      }
+      .more a {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* Skills */
+      .skills {
+        display: grid;
+        gap: 1.6mm;
+      }
+      .skill {
+        display: grid;
+        grid-template-columns: 37mm 1fr;
+        gap: 3mm;
+        padding-bottom: 1.6mm;
+        border-bottom: 0.5pt dashed var(--line);
+        break-inside: avoid;
+      }
+      .skill:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+      .skill dt {
+        font-weight: 640;
+        font-size: 8.7pt;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      .nw {
+        white-space: nowrap;
+      }
+      .skill dd {
+        font-size: 8.5pt;
+        line-height: 1.5;
+      }
+
+      .edu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3mm;
+      }
+      .edu div {
+        padding: 3mm 3.6mm;
+        border-radius: 2.4mm;
+        background: var(--tint);
+        border: 0.5pt solid var(--line);
+      }
+      .edu b {
+        display: block;
+        font-weight: 640;
+        color: var(--ink);
+        font-size: 9pt;
+      }
+      .edu span {
+        font-size: 8pt;
+        color: var(--ink-3);
+      }
+
+      /* Running header + footer */
+      .runhead {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 3.5mm;
+        border-bottom: 0.6pt solid var(--ink);
+        font-size: 8.2pt;
+        color: var(--ink-3);
+      }
+      .runhead b {
+        font-size: 10.5pt;
+        font-weight: 640;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .runhead b em {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+      }
+      .foot {
+        position: absolute;
+        left: 15mm;
+        right: 15mm;
+        bottom: 8mm;
+        display: flex;
+        justify-content: space-between;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.4pt;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+      }
+      .close {
+        margin-top: 4.4mm;
+        padding: 3.4mm 4mm 3.4mm 5mm;
+        border-radius: 3mm;
+        background: var(--ink);
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6mm;
+      }
+      .close p {
+        font-size: 11pt;
+        letter-spacing: -0.02em;
+        font-weight: 560;
+      }
+      .close p em {
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-weight: 400;
+        font-size: 12.5pt;
+        color: #b9b2ff;
+      }
+      .close a {
+        flex: none;
+        padding: 2mm 3.6mm;
+        border-radius: 99mm;
+        background: #fff;
+        color: var(--ink);
+        font-size: 8.2pt;
+        font-weight: 640;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═════════════ PAGE 1 ═════════════ -->
+    <section class="page">
+      <div class="glow"></div>
+
+      <header class="head">
+        <div>
+          <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+            <rect width="40" height="40" rx="12" fill="#0F0F12" />
+            <text x="18.5" y="28.5" text-anchor="middle" font-family="'Instrument Serif', Georgia, serif" font-style="italic" font-size="27" fill="#fff">a</text>
+            <circle cx="29.5" cy="27" r="3.6" fill="#6D62FF" stroke="#0F0F12" stroke-width="1.2" />
+          </svg>
+          <h1>Anil Kumar <em>Giduthuri</em></h1>
+          <p class="role">Senior Product Designer · Senior UX Designer</p>
+          <p class="focus">Enterprise AI · Design systems · React &amp; Next.js prototyping</p>
+        </div>
+        <address class="contact" style="font-style: normal">
+          <span>Hyderabad, India · IST</span>
+          <a href="tel:+919553578760">+91 95535 78760</a>
+          <a href="mailto:uxwithanilg@gmail.com" class="u">uxwithanilg@gmail.com</a>
+          <a href="https://resume.bubird.com/" class="u">Portfolio ↗</a>
+          <a href="https://www.linkedin.com/in/anil-kumar-giduthuri-430367385/" class="u">LinkedIn ↗</a>
+        </address>
+      </header>
+
+      <div class="sec">
+        <h2 class="label">Summary</h2>
+        <div>
+          <p class="summary">
+            I'm a senior product designer with <strong>8+ years</strong> of making complex software easier to understand and
+            safer to use. Most recently I led UX for <strong>N3xgen Agentic OS</strong>, an enterprise AI platform where IT,
+            operations and compliance teams build, test, approve and audit automated workflows. Before that I designed payment
+            flows for a global B2B platform, learning experiences at BYJU'S and a social discovery app from the ground up. I
+            work end to end, from discovery and information architecture to design systems and design QA, and I prototype in
+            <strong>React and Next.js</strong> with AI coding tools so teams can test real behaviour early.
+          </p>
+          <div class="impact">
+            <div class="tile"><b>8+ yrs</b><span>designing web and mobile products since 2018</span></div>
+            <div class="tile"><b>40%+</b><span>higher task completion after a payments redesign</span></div>
+            <div class="tile"><b>2</b><span>enterprise AI platforms led end to end in 2026</span></div>
+            <div class="tile"><b>UX + code</b><span>I prototype my designs in React and Next.js</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2 class="label">Experience</h2>
+        <div>
+          <article class="job">
+            <div class="job-top">
+              <h3>Senior UX Designer <span class="co">· CloudGen Systems Pvt Ltd</span></h3>
+              <span class="date">Feb 2024 – Jun 2026</span>
+            </div>
+            <p class="ctx">
+              Lead UX for N3xgen Agentic OS, an enterprise AI platform used by IT admins, process architects, analysts and
+              compliance teams to run and monitor automated workflows.
+            </p>
+            <ul>
+              <li>
+                Designed <b>Mission Control dashboards</b>, guided task flows, dry-run states, confirmations and safety locks,
+                so people can see what a workflow will do before they let it act.
+              </li>
+              <li>
+                Brought event timelines, structured logs and raw JSON together into <b>one audit review experience</b> for
+                banking and healthcare teams.
+              </li>
+              <li>
+                Built responsive <b>React and Next.js prototypes</b> and UI components with AI coding tools, and worked with
+                engineers on edge cases, feasibility and design QA.
+              </li>
+              <li>
+                Created reusable <b>Figma components, tokens and interaction patterns</b> shared across Agentic OS, a data
+                pipeline builder, an energy dashboard and other enterprise products.
+              </li>
+              <li>
+                Ran design critiques and phase-gate reviews with product, engineering, AI/ML and security leads, and kept a
+                shared decision log so choices stayed traceable.
+              </li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <div class="job-top">
+              <h3>Freelance UX/UI &amp; Front-End Designer <span class="co">· Genie Connections</span></h3>
+              <span class="date">Feb 2023 – Jan 2024</span>
+            </div>
+            <p class="ctx">A social discovery app, designed from the first sign-up screen to the first conversation.</p>
+            <ul>
+              <li>
+                Designed onboarding, matching, messaging and location-aware features, including the
+                <b>privacy, permission and consent states</b> that are easy to leave until last.
+              </li>
+              <li>
+                Built interactive Figma and coded prototypes, ran <b>three rounds of usability testing</b>, and used the
+                findings to simplify onboarding and notification flows.
+              </li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <div class="job-top">
+              <h3>Senior UX Designer &amp; Front-End UI Contributor <span class="co">· TILLI Software India</span></h3>
+              <span class="date">May 2022 – Jan 2023</span>
+            </div>
+            <p class="ctx">Payments and account settings for a global B2B platform.</p>
+            <ul>
+              <li>
+                Redesigned payment setup and transaction flows; <b>task completion rose by more than 40%</b> in usability
+                testing.
+              </li>
+              <li>
+                Merged scattered notification preferences into one clear settings panel and partnered with engineers on the
+                responsive build.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="foot">
+        <span>Anil Kumar Giduthuri · Resume</span>
+        <span>1 / 2</span>
+      </div>
+    </section>
+
+    <!-- ═════════════ PAGE 2 ═════════════ -->
+    <section class="page">
+      <div class="runhead">
+        <b>Anil Kumar <em>Giduthuri</em></b>
+        <span>Senior Product Designer · uxwithanilg@gmail.com · +91 95535 78760</span>
+      </div>
+
+      <div class="sec">
+        <h2 class="label">Experience</h2>
+        <div>
+          <article class="job">
+            <div class="job-top">
+              <h3>UX/UI Designer <span class="co">· BYJU'S — Think &amp; Learn</span></h3>
+              <span class="date">Jan 2022 – May 2022</span>
+            </div>
+            <ul>
+              <li>
+                Designed K–12 lessons, quizzes, video-player states and progress feedback with a clear hierarchy and
+                <b>touch-friendly interactions</b> for young learners.
+              </li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <div class="job-top">
+              <h3>UX/UI Designer <span class="co">· Krify Software Technologies</span></h3>
+              <span class="date">Mar 2018 – Oct 2021</span>
+            </div>
+            <ul>
+              <li>
+                Designed <b>web and mobile products</b> for a range of clients, from requirements and user flows to
+                wireframes, high-fidelity UI and prototypes.
+              </li>
+              <li>
+                Built reusable UI patterns and developer specs, and worked with front-end teams to fix responsive issues
+                before release.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2 class="label">Selected work</h2>
+        <div>
+          <div class="work">
+            <div class="case">
+              <h4>N3XGEN Agentic</h4>
+              <p class="meta">Lead UX · 6 weeks · 2026</p>
+              <p>
+                An AI-native integration platform. Replaced a 25&#8209;screen wizard with an agent canvas and five clear human decision points. Defined a crew of eight
+                AI agents with autonomy levels, approvals and undo, a nine-group information architecture, and a design
+                system of 45 component sets.
+              </p>
+            </div>
+            <div class="case">
+              <h4>AgenticOS</h4>
+              <p class="meta">Lead UX · 10 weeks · 2026</p>
+              <p>
+                An enterprise AI agent platform. Took a dense dark-mode admin tool to a calm, light-mode product. Cut the core model from five objects to
+                three, ranked 13 innovation bets, and designed sandbox runs, run replay and approval flows on a
+                218-component system.
+              </p>
+            </div>
+          </div>
+          <p class="more">Full case studies, research and screens are in my <a href="https://resume.bubird.com/">portfolio ↗</a></p>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h2 class="label">Skills</h2>
+        <dl class="skills">
+          <div class="skill">
+            <dt>UX research &amp; strategy</dt>
+            <dd>
+              Stakeholder and user interviews, contextual inquiry, heuristic evaluation, competitor analysis, personas, JTBD,
+              journey mapping, usability testing
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>Interaction design &amp; IA</dt>
+            <dd>
+              Information architecture, navigation and naming, user flows, wireframing, interaction design, prototyping,
+              micro-interactions, edge cases
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>AI &amp; enterprise UX</dt>
+            <dd>
+              Human-in-the-loop flows, explainable AI (confidence, reasons, undo), approvals and audit trails, Copilot UX,
+              enterprise dashboards
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>Visual design &amp; systems</dt>
+            <dd>
+              Design systems, Figma variants and variables, design tokens, typography, colour, branding, responsive design,
+              accessibility (WCAG 2.1 / 2.2 AA)
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>Product &amp; delivery</dt>
+            <dd>
+              Problem framing, prioritisation (RICE, MoSCoW), HEART metrics, UX writing, workshops, design critique,
+              Dev Mode handoff, design QA
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>Vibe coding</dt>
+            <dd>
+              AI-assisted prototyping in React and Next.js; HTML, CSS, Tailwind CSS, Bootstrap, Git and GitHub, GitHub Copilot
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>Design tools</dt>
+            <dd>
+              Figma, FigJam, <span class="nw">Figma Dev Mode</span>, <span class="nw">Adobe XD</span>, <span class="nw">Adobe Photoshop</span>, <span class="nw">Adobe Illustrator</span>,
+              <span class="nw">Adobe InDesign</span>, Jira, Confluence
+            </dd>
+          </div>
+          <div class="skill">
+            <dt>Motion &amp; animation</dt>
+            <dd><span class="nw">Adobe After Effects</span>, <span class="nw">Adobe Premiere Pro</span>, Lottie, ProtoPie, Principle, <span class="nw">Figma Smart Animate</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="sec">
+        <h2 class="label">Education</h2>
+        <div class="edu">
+          <div>
+            <b>Google UX Design Professional Certificate</b>
+            <span>Google · Coursera</span>
+          </div>
+          <div>
+            <b>Bachelor of Commerce (B.Com.)</b>
+            <span>Undergraduate degree</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="close">
+        <p>Looking for a senior product or UX role where AI, data or money make the work <em>hard.</em></p>
+        <a href="mailto:uxwithanilg@gmail.com">Say hello →</a>
+      </div>
+
+      <div class="foot">
+        <span>Anil Kumar Giduthuri · Resume</span>
+        <span>2 / 2</span>
+      </div>
+    </section>
+  </body>
+</html>

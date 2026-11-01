@@ -1,41 +1,64 @@
-import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import '@fontsource-variable/inter-tight/wght.css'
+import '@fontsource-variable/jetbrains-mono/wght.css'
+import '@fontsource/instrument-serif/400.css'
+import '@fontsource/instrument-serif/400-italic.css'
+import Nav from '@/components/site/Nav'
+import Footer from '@/components/site/Footer'
+import SmoothScroll from '@/components/site/SmoothScroll'
+import CommandPalette from '@/components/site/CommandPalette'
+import Cursor from '@/components/site/Cursor'
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300','400','500','600','700','800','900'],
-  variable: '--font-inter',
-  display: 'swap'
-})
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400','500','600','700'],
-  variable: '--font-space',
-  display: 'swap'
-})
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400','500','700'],
-  variable: '--font-jetbrains',
-  display: 'swap'
-})
+const description =
+  'Senior product and UX designer with 8+ years across enterprise AI, payments, education and consumer apps. I design calm interfaces for complex systems and prototype them in React and Next.js.'
 
 export const metadata = {
-  title: 'Anil Kumar Giduthuri — Senior UX/UI Designer & AI Front-End',
-  description: '8+ years designing B2B SaaS, enterprise AI, and consumer products. Design Systems, AI-Assisted Front-End, React & Next.js. Based in Hyderabad.',
-  keywords: ['UX Designer','UI Designer','Design Systems','B2B SaaS','AI UX','Enterprise Design','Hyderabad','Next.js','React','Figma'],
+  metadataBase: new URL('https://resume.bubird.com'),
+  title: {
+    default: 'Anil Kumar Giduthuri · Senior Product & UX Designer',
+    template: '%s · Anil Kumar Giduthuri',
+  },
+  description,
+  keywords: [
+    'Senior UX Designer',
+    'Senior Product Designer',
+    'UI UX Designer Hyderabad',
+    'Enterprise AI UX',
+    'Agentic AI design',
+    'Design systems',
+    'Vibe coding',
+    'React',
+    'Next.js',
+    'Figma',
+  ],
+  authors: [{ name: 'Anil Kumar Giduthuri' }],
   openGraph: {
-    title: 'Anil Kumar Giduthuri — Senior UX/UI Designer',
-    description: 'Senior UX/UI Designer with 8+ years building products people actually enjoy using. From AI orchestration platforms to global payment flows.',
-    url: 'https://anilkumarg.design',
+    title: 'Anil Kumar Giduthuri · Senior Product & UX Designer',
+    description,
     type: 'website',
   },
+  twitter: { card: 'summary_large_image' },
+}
+
+export const viewport = {
+  themeColor: '#f5f4ef',
+  colorScheme: 'light',
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrains.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body>
+        <a href="#main" className="skip">
+          Skip to content
+        </a>
+        <SmoothScroll />
+        <Nav />
+        <CommandPalette />
+        <Cursor />
+        <main id="main">{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }
