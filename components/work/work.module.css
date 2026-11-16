@@ -1,0 +1,110 @@
+.page {
+  position: relative;
+  padding: calc(var(--nav-h) + 72px) 0 clamp(96px, 12vw, 160px);
+  overflow: hidden;
+}
+.glow {
+  position: absolute;
+  top: -20vh;
+  right: -10vw;
+  width: 60vw;
+  height: 60vw;
+  max-width: 900px;
+  max-height: 900px;
+  background: radial-gradient(closest-side, rgba(124, 108, 255, 0.22), rgba(255, 150, 110, 0.1) 60%, transparent);
+  filter: blur(30px);
+  pointer-events: none;
+}
+.page :global(.container) {
+  position: relative;
+}
+.title {
+  margin-top: 22px;
+  max-width: 1100px;
+  font-size: clamp(46px, 7.4vw, 116px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+}
+.title :global(.serif) {
+  color: var(--accent);
+}
+.lead {
+  margin-top: 24px;
+  max-width: 680px;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 44px 0 36px;
+}
+.chip {
+  position: relative;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color 0.25s, border-color 0.25s;
+}
+.chip:hover {
+  border-color: var(--ink-3);
+}
+.chipOn {
+  color: #fff;
+  border-color: var(--ink);
+}
+.chipBg {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: var(--ink);
+}
+.chipText {
+  position: relative;
+}
+.chipText em {
+  margin-left: 4px;
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  opacity: 0.6;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.note {
+  margin-top: 56px;
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 16px;
+}
+.note a {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom: 1.5px solid var(--ink);
+}
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+  .chip {
+    flex: none;
+  }
+}

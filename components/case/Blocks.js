@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { motion } from 'motion/react'
 import { Reveal, Stagger, RevealItem, ease } from '@/components/motion'
 import { useOpenImage } from './imageContext'
+import Phone from '@/components/site/Phone'
 import s from './case.module.css'
 
 // Renders one content block of a case study. Content lives in data/cases/*.js.
@@ -339,6 +340,24 @@ function Gallery({ b }) {
   )
 }
 
+function Phones({ b }) {
+  const open = useOpenImage()
+  return (
+    <div>
+      <h3 className={s.blockTitle}>{b.title || 'Mobile app'}</h3>
+      <Stagger className={s.phones} gap={0.06} amount={0.05}>
+        {b.items.map((it) => (
+          <RevealItem key={it.src} as="button" className={s.phoneItem} onClick={() => open(it.src)} data-cursor="Zoom">
+            <Phone src={it.src} alt={it.title} />
+            <span className={s.galleryTitle}>{it.title}</span>
+          </RevealItem>
+        ))}
+      </Stagger>
+      {b.caption && <p className={s.caption}>{b.caption}</p>}
+    </div>
+  )
+}
+
 const blocks = {
   text: Text,
   quote: Quote,
@@ -357,4 +376,5 @@ const blocks = {
   split: Split,
   spotlight: Spotlight,
   gallery: Gallery,
+  phones: Phones,
 }

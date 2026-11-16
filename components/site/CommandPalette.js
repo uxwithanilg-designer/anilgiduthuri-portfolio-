@@ -25,8 +25,8 @@ export default function CommandPalette() {
 
   const items = useMemo(
     () => [
-      { group: 'Case studies', label: cases[0].name, hint: cases[0].kind, run: () => router.push(`/work/${cases[0].slug}`) },
-      { group: 'Case studies', label: cases[1].name, hint: cases[1].kind, run: () => router.push(`/work/${cases[1].slug}`) },
+      ...cases.map((c) => ({ group: 'Case studies', label: c.name, hint: c.kind, run: () => router.push(`/work/${c.slug}`) })),
+      { group: 'Go to', label: 'All work', hint: 'Every case study', run: () => router.push('/work') },
       { group: 'Go to', label: 'Selected work', hint: 'Section', run: () => goSection('work') },
       { group: 'Go to', label: 'About Anil', hint: 'Section', run: () => goSection('about') },
       { group: 'Go to', label: 'How I work', hint: 'Section', run: () => goSection('process') },

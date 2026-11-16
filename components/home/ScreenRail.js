@@ -46,7 +46,7 @@ export default function ScreenRail() {
           </div>
           <Reveal delay={0.1}>
             <p className={s.railNote}>
-              Ten of the 79 hi-fi screens I designed this year. {pinned ? 'Keep scrolling,' : 'Swipe,'} and tap any screen to see it
+              A few of the hi-fi screens from my case studies. {pinned ? 'Keep scrolling,' : 'Swipe,'} and tap any screen to see it
               full size.
             </p>
           </Reveal>

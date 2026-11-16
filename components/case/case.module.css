@@ -1056,3 +1056,54 @@
     color: var(--ink-4);
   }
 }
+
+/* ───────── Phones (mobile screens) ───────── */
+.phones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 28px 18px;
+}
+.phoneItem {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+  transition: transform 0.6s var(--ease);
+}
+.phoneItem:hover {
+  transform: translateY(-6px);
+}
+@media (max-width: 640px) {
+  .phones {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 4px var(--gutter) 12px;
+    scrollbar-width: none;
+  }
+  .phones::-webkit-scrollbar {
+    display: none;
+  }
+  .phoneItem {
+    flex: none;
+    width: 62vw;
+    max-width: 240px;
+    scroll-snap-align: center;
+  }
+}
+
+/* Hero + next card for mobile-first projects */
+.heroPhones {
+  display: block;
+  width: 100%;
+  border-radius: 28px;
+  background: radial-gradient(70% 80% at 50% 0%, color-mix(in srgb, var(--a) 22%, transparent), transparent 70%), var(--tint);
+  border: 1px solid color-mix(in srgb, var(--a) 14%, transparent);
+  transform-origin: 50% 0;
+  overflow: hidden;
+}
+.nextPhones {
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--na) 10%, #fff);
+}

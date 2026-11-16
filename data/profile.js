@@ -24,7 +24,7 @@ export const nav = [
 export const stats = [
   { value: 8, suffix: '+', label: 'years designing digital products' },
   { value: 5, suffix: '', label: 'companies, from start-ups to BYJU’S' },
-  { value: 79, suffix: '', label: 'hi-fi screens across two AI platforms in 2026' },
+  { value: 8, suffix: '', label: 'end-to-end case studies, from research to handoff' },
   { value: 40, suffix: '%+', label: 'better task completion on a payments redesign' },
 ]
 

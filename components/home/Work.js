@@ -3,34 +3,57 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { Reveal, SplitText } from '@/components/motion'
-import { cases } from '@/data/cases'
+import { cases, featuredCases, countWord } from '@/data/cases'
+import ProjectCard from '@/components/site/ProjectCard'
+import { PhoneTrio } from '@/components/site/Phone'
 import s from './home.module.css'
 
 export default function Work() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const rest = cases.filter((c) => !c.featured)
 
   return (
     <section id="work" className={`section ${s.work}`}>
       <div className="container">
         <div className={s.head}>
           <Reveal>
-            <span className="eyebrow">Selected work · 2026</span>
+            <span className="eyebrow">Selected work</span>
           </Reveal>
-          <SplitText className="h2" text="Two AI platforms, designed *end to end.*" />
+          <SplitText className="h2" text={`${countWord(cases.length)} products, *designed end to end.*`} />
           <Reveal delay={0.15}>
             <p className={`lead ${s.headLead}`}>
-              Both are enterprise products where AI agents touch real systems, real data and real money. The hard part was
-              never the AI. It was making people trust it.
+              Enterprise AI, healthcare, workplace software, fintech, retail and a consumer app. Every one starts with
+              research and ends with a handoff engineers can build from.
             </p>
           </Reveal>
         </div>
 
         <div ref={ref} className={s.stack}>
-          {cases.map((c, i) => (
-            <Card key={c.slug} c={c} i={i} n={cases.length} progress={scrollYProgress} />
+          {featuredCases.map((c, i) => (
+            <Card key={c.slug} c={c} i={i} n={featuredCases.length} progress={scrollYProgress} />
           ))}
         </div>
+
+        {rest.length > 0 && (
+          <>
+            <div className={s.moreHead}>
+              <Reveal>
+                <h3 className="h3">More case studies</h3>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <Link href="/work" className={s.allLink}>
+                  See all work, by industry →
+                </Link>
+              </Reveal>
+            </div>
+            <div className={s.moreGrid}>
+              {rest.map((c, i) => (
+                <ProjectCard key={c.slug} c={c} i={i} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   )
@@ -76,18 +99,26 @@ function Card({ c, i, n, progress }) {
         </div>
 
         <div className={s.cardVisual} aria-hidden="true">
-          <motion.div className={`frame ${s.cardMain}`} style={{ y: imgY }}>
-            <div className="frame-bar">
-              <i />
-              <i />
-              <i />
-              <span>{c.slug}.app/home</span>
-            </div>
-            <img src={c.cover} alt="" loading="lazy" width="1440" height="1000" />
-          </motion.div>
-          <motion.div className={`frame ${s.cardAlt}`} style={{ y: altY }}>
-            <img src={c.coverAlt} alt="" loading="lazy" width="1440" height="1000" />
-          </motion.div>
+          {c.coverDevice === 'phone' ? (
+            <motion.div className={s.cardPhones} style={{ y: imgY }}>
+              <PhoneTrio phones={c.coverPhones} />
+            </motion.div>
+          ) : (
+            <>
+              <motion.div className={`frame ${s.cardMain}`} style={{ y: imgY }}>
+                <div className="frame-bar">
+                  <i />
+                  <i />
+                  <i />
+                  <span>{c.slug}.app/home</span>
+                </div>
+                <img src={c.cover} alt="" loading="lazy" width="1440" height="1000" />
+              </motion.div>
+              <motion.div className={`frame ${s.cardAlt}`} style={{ y: altY }}>
+                <img src={c.coverAlt} alt="" loading="lazy" width="1440" height="1000" />
+              </motion.div>
+            </>
+          )}
           <div className={s.cardBadge}>
             <span className="status-dot" />
             {c.meta[0].value} · {c.meta[2].value}

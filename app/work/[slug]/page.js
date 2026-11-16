@@ -20,5 +20,6 @@ export default function Page({ params }) {
   const c = getCase(params.slug)
   if (!c) notFound()
   const next = cases[(cases.indexOf(c) + 1) % cases.length]
-  return <CaseStudy c={c} next={{ slug: next.slug, name: next.name, kind: next.kind, title: next.title, cover: next.cover, accent: next.accent }} />
+  const { slug, name, kind, title, cover, accent, coverDevice = null, coverPhones = null } = next
+  return <CaseStudy c={c} next={{ slug, name, kind, title, cover, accent, coverDevice, coverPhones }} />
 }

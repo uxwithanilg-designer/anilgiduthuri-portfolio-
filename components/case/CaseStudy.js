@@ -6,6 +6,7 @@ import { SplitText, Reveal, ease } from '@/components/motion'
 import Lightbox from '@/components/site/Lightbox'
 import { scrollToId } from '@/components/site/scroll'
 import Block from './Blocks'
+import { PhoneTrio } from '@/components/site/Phone'
 import { ImageCtx, useOpenImage } from './imageContext'
 import s from './case.module.css'
 
@@ -13,11 +14,12 @@ import s from './case.module.css'
 export default function CaseStudy({ c, next }) {
   // Every image in the case study can be opened full size, in reading order.
   const images = useMemo(() => {
-    const out = [{ src: c.cover, title: `${c.name} · Home` }]
+    const out = (c.coverPhones || [c.cover]).map((src) => ({ src, title: `${c.name} · Home` }))
     c.sections.forEach((sec) =>
       sec.blocks.forEach((b) => {
         if (b.type === 'image') out.push({ src: b.src, title: b.caption || b.alt })
-        if (b.type === 'spotlight' || b.type === 'gallery') b.items.forEach((it) => out.push({ src: it.src, title: it.title }))
+        if (b.type === 'spotlight' || b.type === 'gallery' || b.type === 'phones')
+          b.items.forEach((it) => out.push({ src: it.src, title: it.title }))
       })
     )
     return out.filter((img, i, arr) => arr.findIndex((x) => x.src === img.src) === i)
@@ -126,21 +128,33 @@ function Hero({ c }) {
       </div>
 
       <div ref={ref} className={`container ${s.heroShotWrap}`}>
-        <motion.button
-          className={`frame ${s.heroShot}`}
-          style={{ rotateX, scale, y, transformPerspective: 1400 }}
-          onClick={() => openImage(c.cover)}
-          data-cursor="Zoom"
-          aria-label={`Open ${c.name} home screen full size`}
-        >
-          <div className="frame-bar">
-            <i />
-            <i />
-            <i />
-            <span>{c.slug}.app</span>
-          </div>
-          <img src={c.cover} alt={`${c.name} home screen`} width="1440" height="1000" />
-        </motion.button>
+        {c.coverDevice === 'phone' ? (
+          <motion.button
+            className={s.heroPhones}
+            style={{ rotateX, scale, y, transformPerspective: 1400 }}
+            onClick={() => openImage(c.coverPhones[1])}
+            data-cursor="Zoom"
+            aria-label={`Open ${c.name} screens full size`}
+          >
+            <PhoneTrio phones={c.coverPhones} loading="eager" />
+          </motion.button>
+        ) : (
+          <motion.button
+            className={`frame ${s.heroShot}`}
+            style={{ rotateX, scale, y, transformPerspective: 1400 }}
+            onClick={() => openImage(c.cover)}
+            data-cursor="Zoom"
+            aria-label={`Open ${c.name} home screen full size`}
+          >
+            <div className="frame-bar">
+              <i />
+              <i />
+              <i />
+              <span>{c.slug}.app</span>
+            </div>
+            <img src={c.cover} alt={`${c.name} home screen`} width="1440" height="1000" />
+          </motion.button>
+        )}
       </div>
 
       <div className="container">
@@ -208,9 +222,15 @@ function Next({ next }) {
             <span className={s.nextTitle}>{next.title}</span>
             <span className={s.nextCta}>Read it →</span>
           </div>
-          <div className={`frame ${s.nextShot}`} aria-hidden="true">
-            <img src={next.cover} alt="" loading="lazy" width="1440" height="1000" />
-          </div>
+          {next.coverDevice === 'phone' ? (
+            <div className={s.nextPhones} aria-hidden="true">
+              <PhoneTrio phones={next.coverPhones} />
+            </div>
+          ) : (
+            <div className={`frame ${s.nextShot}`} aria-hidden="true">
+              <img src={next.cover} alt="" loading="lazy" width="1440" height="1000" />
+            </div>
+          )}
         </Link>
       </div>
     </section>
